@@ -82,10 +82,11 @@
 					window.location = url;
 				},
 				onload: function(tree) {
-					var cookie = $.cookie(tree.settings.cookies.prefix + '_open');
+					// tried getting this cookie from js but it was never consistent
+					// or took too long to get the newest value
+					var open_nodes = document.open_menu_trees;
 					var admin_base_url = document.URL.split("/cms/page/")[0] + "/";
-					if (cookie) {
-						var open_nodes = document.open_menu_trees; 
+					if (open_nodes) {
 						$.each(open_nodes, function(i, node) {
 							var elem = $("#page_" + node);
 		                    var pageId = elem.attr("id").split("page_")[1];
