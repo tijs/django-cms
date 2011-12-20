@@ -12,6 +12,9 @@
 
 {% block coltype %}flex{% endblock %}
 {% block extrahead %}
+<script type="text/javascript">
+	document.open_menu_trees = {{ open_menu_trees }};
+</script>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}cms/css/pages.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}cms/jstree/tree_component.css" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}cms/css/jquery.dialog.css" />

@@ -80,11 +80,31 @@
 				onchange: function(node, tree){
 					url = $(node).find('a.title').attr("href");
 					window.location = url;
+				},
+				onload: function(tree) {
+					var cookie = $.cookie(tree.settings.cookies.prefix + '_open');
+					var admin_base_url = document.URL.split("/cms/page/")[0] + "/";
+					if (cookie) {
+						var open_nodes = document.open_menu_trees; 
+						$.each(open_nodes, function(i, node) {
+							var elem = $("#page_" + node);
+		                    var pageId = elem.attr("id").split("page_")[1];
+		                    $.ajax({
+			                    url: admin_base_url + "cms/page/" + pageId + "/descendants/", 
+			                    type: 'GET',
+			                    async: false,
+			                    success: function(r, status) {
+			                    	elem.children('ul').append(r);
+			                    	elem.removeClass("closed").addClass('open');
+			                    }
+		                    });
+			                
+						})
+					}
 				}
 			}
 		};
-		
-		
+
 		if (!$($("div.tree").get(0)).hasClass('root_allow_children')){
 			// disalow possibility for adding subnodes to main tree, user doesn't
 			// have permissions for this
